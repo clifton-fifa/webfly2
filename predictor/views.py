@@ -1,18 +1,12 @@
 from django.shortcuts import render
-from .forms import PredictionForm
-from .models import predict_family, predict_species
+from .models import PredictFamily, PredictSpecies
 
 def predict_family_view(request):
-    if request.method == 'POST':
-        form = PredictionForm(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            family_prediction = predict_family(data)
-            species_prediction = predict_species(data)
-            return render(request, 'predictor/result.html', {
-                'family_prediction': family_prediction,
-                'species_prediction': species_prediction
-            })
-    else:
-        form = PredictionForm()
-    return render(request, 'predictor/form.html', {'form': form})
+    # เขียนโค้ดที่ต้องการ
+    context = {}
+    return render(request, 'predictor/predict_family.html', context)
+
+def predict_species_view(request):
+    # เขียนโค้ดที่ต้องการ
+    context = {}
+    return render(request, 'predictor/predict_species.html', context)
