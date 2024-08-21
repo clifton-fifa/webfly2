@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fly Prediction</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script>
+    async function predict(event) {
+      event.preventDefault();  // Prevents the form from submitting normally
+    
+      // Collect data from the form
+      const formData = new FormData(document.querySelector('form'));
+    
+      // Check if all fields are filled
+      for (let [key, value] of formData.entries()) {
+        if (!value) {
+          alert('Please fill out all fields before submitting.');
+          return;
+        }
+      }
+    
+      // Send data to the server
+      const response = await fetch('/predict', {
+        method: 'POST',
+        body: formData
+      });
+    
+      // Convert response to JSON
+      const result = await response.json();
+    
+      // Update the page with results
+      const imagePathMap = {
+        'Calliphoridae': '/static/assets/Calliphoridae.jpg',
+        'Muscidae': '/static/assets/Muscidae.jpg',
+        'Sarcophagidae': '/static/assets/Sarcophagidae.jpg'
+      };
+    
+      const familyName = result.family;
+      document.getElementById('familyImage').src = imagePathMap[familyName] || '/static/assets/nothing.png';
+      document.getElementById('igzo8e').innerText = familyName;
+      document.getElementById('familyAccuracy').innerText = result.family_accuracy.toFixed(2) + '%';
+      document.getElementById('speciesPrediction').innerText = result.species;
+      document.getElementById('speciesAccuracy').innerText = result.species_accuracy.toFixed(2) + '%';
+    }
+    </script>
+    
+
+</head>
+<body id="ihix3i">
+  <div id="iv82bz" class="gjs-grid-row">
+    <div id="i3xr2b" class="gjs-grid-column">
+      <div id="iw7twm" class="gjs-grid-row">
+        <div id="iz4w1f" class="gjs-grid-column">
+          <div id="i9phbb" class="gjs-grid-row">
+            <div id="ishujj" class="gjs-grid-column"><a href="./" id="i19ogi"
+                class="gjs-link"><b id="ij670n"><span id="ibl1fa">Home</span></b></a><a href="#igxkpe" id="i1k0uf"
+                title="" class="gjs-link"><b id="irn781"><span id="i4hrvr">Identifying</span></b></a><a href="#i5jf9o"
+                id="iux3t4" class="gjs-link"><span id="igoai3">Species</span></a><a href="#ismyu4" id="iqjxd9"
+                class="gjs-link">Contact us</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section id="ihkcs8" class="gjs-section">
+    <div id="i8nwv" class="gjs-container">
+      <div id="i8h35w" class="gjs-grid-row">
+        <div id="iqie8l" class="gjs-grid-column">
+          <h1 id="i0qr7k" class="gjs-heading">Fly <br/>Species <br/>Using <br/>Wing Morphometric<br/>Identifying</h1>
+          <div id="ihj9yf" class="gjs-grid-row">
+            <div id="imihrh" class="gjs-grid-column">
+              <div id="ic4dcm" class="gjs-grid-row">
+                <div id="i1seu2" class="gjs-grid-column"><a id="iibucp" href="#igxkpe" title=""
+                    class="gjs-link">Start<br/></a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="ia48bc" class="gjs-section">
+    <div class="gjs-container">
+      <div id="igxkpe" class="gjs-grid-row">
+        <div id="i30wth" class="gjs-grid-column">
+          <h2 id="iaf4hf" class="gjs-heading">                Wing Morphometric Species Identifying</h2>
+          <div id="ihhfuq" class="gjs-grid-row">
+            <div id="ixgn1h" class="gjs-grid-column">
+              <div id="idn6u9" class="gjs-grid-row">
+                <div id="ia5glm" class="gjs-grid-column">
+                  <div id="i7k1mv" class="gjs-grid-row">
+                    <div class="gjs-grid-column">
+                      <div id="image-container">
+                        <img id="icauek" src="{{ url_for('static', filename='assets/picture1.png') }}" alt="Fly Image">
+                    </div>
+                    </div>
+                    <div id="ik2xhw" class="gjs-grid-column">
+                      <div id="iat86d" class="gjs-image-box">
+                        <div id="ilti6p" class="gjs-image-box"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <form onsubmit="predict(event)">
+              <div id="i20t5n" class="gjs-grid-row">
+                <div id="i1y26m" class="gjs-grid-column">
+                  <div id="ipatf2" class="gjs-grid-row">
+                    <div id="izxbyj" class="gjs-grid-column"><label id="i5znst"><b id="i3i2w8">a(1-2) : </b></label>
+                    </div>
+                    <div id="i51ys" class="gjs-grid-column"><input type="number" id="i0yk32"   name="a" step="any" required/>
+                    </div>
+                  </div>
+                  <div id="imy43i" class="gjs-grid-row">
+                    <div id="ickb06" class="gjs-grid-column"><label id="ilah2r"><b id="isvi5n">b(2-3) : </b></label>
+                    </div>
+                    <div id="ia4ly" class="gjs-grid-column"><input type="number" id="i5exnf" name="b" step="any" required/></div>
+                  </div>
+                  <div id="iesepq" class="gjs-grid-row">
+                    <div class="gjs-grid-column" id="iy2dc2"><label id="i80ls9"><b id="ibvyqp">c(3-4) : </b></label>
+                    </div>
+                    <div class="gjs-grid-column" id="issbli"><input type="number" id="ifmrpv" name="c" step="any" required/></div>
+                  </div>
+                  <div id="ipy6dy" class="gjs-grid-row">
+                    <div class="gjs-grid-column" id="ihpv2v"><label id="ihmink"><b id="ihggeg">d(4-5) : </b></label>
+                    </div>
+                    <div class="gjs-grid-column" id="ijyohk"><input type="number" id="igm2su" name="d"  step="any" required/></div>
+                  </div>
+                  <div id="imztcb" class="gjs-grid-row">
+                    <div class="gjs-grid-column" id="i7tdym"><label id="is89n2"><b id="i0rehg">e(6-7) : </b></label>
+                    </div>
+                    <div id="i81gpx" class="gjs-grid-column"><input type="number" id="ir1wnl" name="e" step="any" required/></div>
+                  </div>
+                  <div id="id845a" class="gjs-grid-row">
+                    <div class="gjs-grid-column" id="ic1xzo"><label id="izz95g"><b id="iobj0f">f(7-10) : </b></label>
+                    </div>
+                    <div class="gjs-grid-column" id="i1dc13"><input type="number" id="im9c42" name="f" step="any" required/></div>
+                  </div>
+                  <div id="i349m5" class="gjs-grid-row">
+                    <div class="gjs-grid-column" id="i5cxbg"><label id="ir2n6j"><b id="ivh4zj">g(9-10) : </b></label>
+                    </div>
+                    <div class="gjs-grid-column"><input type="number" id="ixi27j" name="g" step="any" required/></div>
+                  </div>
+                  <div id="igvpqk" class="gjs-grid-row">
+                    <div id="icwrf" class="gjs-grid-column"><label id="i9j0ka"><b id="i88yo3">h(9-15) : </b></label>
+                    </div>
+                    <div id="iwi0ul" class="gjs-grid-column"><input type="number" id="iyg10g" name="h" step="any" required/></div>
+                  </div>
+                  <div id="i0ms7x" class="gjs-grid-row">
+                    <div id="iym8wp" class="gjs-grid-column"><label id="ihrzn7"><b id="i3fatc">i(15-16) : </b></label>
+                    </div>
+                    <div class="gjs-grid-column" id="i5974j"><input type="number" id="im39wm" name="i" step="any" required/></div>
+                  </div>
+                  <div id="imd475" class="gjs-grid-row">
+                    <div id="inwjh5" class="gjs-grid-column"><label id="iddzgk"><b id="ii3l31">j(14-15) : </b></label>
+                    </div>
+                    <div class="gjs-grid-column" id="ig0jw7"><input type="number" id="iwzg4c" name="j" step="any" required/></div>
+                  </div>
+                  <div id="ian3lb" class="gjs-grid-row">
+                    <div id="iif0qh" class="gjs-grid-column"><label id="iybhzn"><b id="i1ekjm">k(13-14) : </b></label>
+                    </div>
+                    <div class="gjs-grid-column" id="i1xvef"><input type="number" id="ig45q2" name="k" step="any" required/></div>
+                  </div>
+                  <div id="i1lzeh" class="gjs-grid-row">
+                    <div id="i58q86" class="gjs-grid-column"><label id="inoecj"><b id="i984vz">l(13-17) : </b></label>
+                    </div>
+                    <div class="gjs-grid-column"><input type="number" id="i09k3n" name="l" step="any" required/></div>
+                  </div>
+                  <div id="inuntt" class="gjs-grid-row">
+                    <div id="iuvk3i" class="gjs-grid-column"><label id="ifb3m1"><b id="iqe7h4">m(17-18) : </b></label>
+                    </div>
+                    <div class="gjs-grid-column" id="ioh1c7"><input type="number" id="io6ah2" name="m" step="any" required/></div>
+                  </div>
+                  <div id="iytcvr" class="gjs-grid-row">
+                    <div id="icukxg" class="gjs-grid-column"><label id="ipty1w"><b id="idub9g">n(1-18) : </b></label>
+                    </div>
+                    <div class="gjs-grid-column" id="iee4fb"><input type="number" id="ig8nhi" name="n" step="any" required/></div>
+                  </div>
+                  <div id="iubyqf" class="gjs-grid-row">
+                    <div id="izi117" class="gjs-grid-column"><label id="ik4hl2"><b id="i0tz68">o(2-13) : </b></label>
+                    </div>
+                    <div class="gjs-grid-column" id="i9u6zk"><input type="number" id="ia540e" name="o" step="any" required/></div>
+                  </div>
+                  <div id="i4bwmd" class="gjs-grid-row">
+                    <div id="i1ok9b" class="gjs-grid-column"><label id="iqea1j"><b id="i15hhh">p(3-12) : </b></label>
+                    </div>
+                    <div class="gjs-grid-column" id="i150yj"><input type="number" id="it28vz" name="p" step="any" required/></div>
+                  </div>
+                  <div id="idjc9z" class="gjs-grid-row">
+                    <div id="immul6" class="gjs-grid-column"><label id="i6mh9h"><b id="i6kj38">q(12-13) : </b></label>
+                    </div>
+                    <div class="gjs-grid-column" id="ipupz6"><input type="number" id="icdgfi" name="q" step="any" required/></div>
+                  </div>
+                  <div id="ikx4t5" class="gjs-grid-row">
+                    <div id="ioz243" class="gjs-grid-column"><label id="ifqivc"><b id="ix6uwy">r(5-12) : </b></label>
+                    </div>
+                    <div class="gjs-grid-column" id="izsaou"><input type="number" id="i6dv9l" name="r" step="any" required/></div>
+                  </div>
+                  <div id="i66ul8" class="gjs-grid-row">
+                    <div id="i261jq" class="gjs-grid-column"><label id="ivbjtj"><b id="i1y4us">s(11-14) : </b></label>
+                    </div>
+                    <div class="gjs-grid-column" id="ic53xo"><input type="number" id="i1vlrj" name="s" step="any" required/></div>
+                  </div>
+                  <div id="ihe87c" class="gjs-grid-row">
+                    <div id="irxla1" class="gjs-grid-column"><label id="ifaywv"><b id="i31f7g">t(8-11) : </b></label>
+                    </div>
+                    <div class="gjs-grid-column"><input type="number" id="ix0jqx" name="t" step="any" required/></div>
+                  </div>
+                  <div id="i6g8lk" class="gjs-grid-row">
+                    <div id="ii9vng" class="gjs-grid-column"><label id="ictlq4"><b id="ior46n">u(7-8) : </b></label>
+                    </div>
+                    <div class="gjs-grid-column"><input type="number" id="iiy2kg" name="u" step="any" required/></div>
+                  </div>
+                  <div id="ir1eeh" class="gjs-grid-row">
+                    <div id="i8w7zg" class="gjs-grid-column"><label id="inq2zf"><b id="ihxzvv">V(8-9) : </b></label>
+                    </div>
+                    <div class="gjs-grid-column" id="ijw7dl"><input type="number" id="ir22ix" name="v" step="any" required/></div>
+                  </div>
+                  <div id="ilte8v" class="gjs-grid-row">
+                    <div id="i5jakv" class="gjs-grid-column"><label id="iubziq"><b id="ip3016">w(11-12) : </b></label>
+                    </div>
+                    <div class="gjs-grid-column"><input type="number" id="iigega" name="w" step="any" required/></div>
+                  </div>
+                  <div style="text-align: center;">
+                    <button type="submit" id="i4xqny" style="margin: auto;">Prediction</button>
+                  </div>
+                  </div>
+                  </div>
+              </form>  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  
+  <section class="gjs-section" id="iz57ii">
+    <div class="gjs-container" id="im7vs1">
+      <div class="gjs-grid-row" id="ivb8o7">
+        <div class="gjs-grid-column" id="iyehcr">
+          <h1 class="gjs-heading" id="iq499p"><br/>                                                      Prediction Result
+          </h1>
+          <div class="gjs-image-box" id="i5k15h">
+            <img id="familyImage" src="/static/assets/nothing.png" alt="Family Image" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+          </div>
+          <div class="gjs-grid-row" id="iiooin">
+            <div class="gjs-grid-column" id="iypcg2">
+              <div id="iwtxre">Family Prediction :<br/><span id="igzo8e">  </span><br/>Model Accuracy :<br/><br/><br/>
+              </div>
+            </div>
+            <div class="gjs-grid-column" id="ia7eag">
+              <div id="ihy30j">Species Prediction : <br/><br/>Model Accuracy :<br/><br/></div>
+            </div>
+          </div>
+          <div class="gjs-grid-row" id="i0ay0y">
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="i5jf9o" class="gjs-section">
+    <div class="gjs-container">
+      <div id="iiqdlh" class="gjs-grid-row">
+        <div id="i72g1y" class="gjs-grid-column">
+          <div id="ik8e7j" class="gjs-grid-row">
+            <div id="i017bf" class="gjs-grid-column">
+              <div id="ieeyu2" class="gjs-image-box"></div>
+            </div>
+            <div id="itqsuy" class="gjs-grid-column">
+              <div id="icerlo"><b>Calliphoridae</b></div>
+            </div>
+          </div>
+          <div id="imkd2h" class="gjs-grid-row">
+            <div id="iwug5z" class="gjs-grid-column">
+              <div id="iwwlrw" class="gjs-image-box"></div>
+            </div>
+            <div id="i3un05" class="gjs-grid-column">
+              <div id="iwvvnh"><b id="izvfdm"><b id="iqy0ht" draggable="false">Sarcophagidae</b></b></div>
+            </div>
+          </div>
+          <div id="i0qeuo" class="gjs-grid-row">
+            <div id="i23wvg" class="gjs-grid-column">
+              <div id="ifr141" class="gjs-image-box"></div>
+            </div>
+            <div id="imd0qd" class="gjs-grid-column">
+              <div id="izu63j"><b id="i8oaci"><b id="i2hvvc" draggable="false">Muscidae</b></b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="ismyu4" class="gjs-section">
+    <div id="ify0iz" class="gjs-container">
+      <div id="iug0k6" class="gjs-grid-row">
+        <div class="gjs-grid-column"><iframe frameborder="0" id="i90gso"
+            src="https://maps.google.com/maps?&q= ภาควิชาคณิตศาสตร์ คณะวิทยาศาสตร์ มหาวิทยาลัยนเรศวร ต.ท่าโพธิ์ อ.เมือง จ.พิษณุโลก 65000&z=21&t=q&output=embed"></iframe>
+        </div>
+        <div id="itj5r5" class="gjs-grid-column">
+          <form method="get" id="i30g56">
+            <div id="iltaex"></div>
+          </form>
+          <h1 id="i84fwi" class="gjs-heading">   ติดต่อเรา</h1>
+          <div id="iwx4lz">
+            <b> ที่อยู่ : 99 หมู่ 9 ภาควิชาคณิตศาสตร์ คณะวิทยาศาสตร์ <br/>มหาวิทยาลัยนเรศวร ต.ท่าโพธิ์ อ.เมือง จ.พิษณุโลก 65000</b><br/>
+          </div>
+          <div id="izzshr"><b> Email : maths@nu.ac.th</b><br/></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+
+
+
